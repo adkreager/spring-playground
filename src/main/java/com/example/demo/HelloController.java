@@ -64,4 +64,41 @@ public class HelloController {
         int volume = Integer.parseInt(length) * Integer.parseInt(width) * Integer.parseInt(height);
         return "The volume of a " + length + "x" + width + "x" + height + " rectangle is " + Integer.toString(volume);
     }
+
+    @PostMapping("/math/area")
+    public String calculateArea(@RequestParam Map <String, String> map) {
+        if (map.containsKey("type")) {
+            if (map.get("type").equalsIgnoreCase("circle")) {
+                double radius = Double.parseDouble(map.get("radius"));
+                if (map.containsKey("radius")) {
+                    double area = Double.parseDouble(returnPi()) * (radius * radius);
+                    return "The area of a circle with a radius of " + map.get("radius") + " is " +
+                            Double.toString(area);
+                } else {
+                    return "Invalid";
+                }
+            }
+            else if (map.get("type").equalsIgnoreCase("rectangle")) {
+                int length;
+                int width;
+                if (map.containsKey("length")) {
+                    length = Integer.parseInt(map.get("length"));
+                } else {
+                    return "Invalid";
+                }
+                if (map.containsKey("width")) {
+                    width = Integer.parseInt(map.get("width"));
+                } else {
+                    return "Invalid";
+                }
+
+                int area = length * width;
+                return "The area of a " + Integer.toString(length) + "x" + Integer.toString(width) +
+                        " rectangle is " + Integer.toString(area);
+            } else {
+                return "Invalid";
+            }
+        }
+        return "Invalid";
+    }
 }
