@@ -1,9 +1,6 @@
 package com.example.demo;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -56,5 +53,15 @@ public class HelloController {
             }
         }
         return resultString + " = " + Integer.toString(sum);
+    }
+
+    @RequestMapping("/math/volume/{l}/{w}/{h}")
+    public String mathVolume(
+            @PathVariable("l") String length,
+            @PathVariable("w") String width,
+            @PathVariable("h") String height
+    ) {
+        int volume = Integer.parseInt(length) * Integer.parseInt(width) * Integer.parseInt(height);
+        return "The volume of a " + length + "x" + width + "x" + height + " rectangle is " + Integer.toString(volume);
     }
 }
