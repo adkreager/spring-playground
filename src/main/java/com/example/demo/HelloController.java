@@ -1,8 +1,11 @@
 package com.example.demo;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 public class HelloController {
@@ -38,5 +41,20 @@ public class HelloController {
             default:
                 return "Enter a valid operation type";
         }
+    }
+
+    @PostMapping("/math/sum")
+    public String sumDisplay(@RequestParam Map<String,String> keys) {
+        String resultString = "";
+        int sum = 0;
+        for (String i : keys.keySet()) {
+            sum += Integer.parseInt(keys.get(i));
+            if (resultString == "") {
+                resultString = keys.get(i);
+            } else {
+                resultString += " + " + keys.get(i);
+            }
+        }
+        return resultString + " = " + Integer.toString(sum);
     }
 }
