@@ -2,6 +2,7 @@ package com.example.demo;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -100,5 +101,10 @@ public class HelloController {
             }
         }
         return "Invalid";
+    }
+
+    @GetMapping("/flights/flight")
+    public String returnFlight() {
+        return "";
     }
 }
